@@ -1,4 +1,9 @@
 """
+Copyright (c) Microsoft Corporation.
+Licensed under the MIT License.
+"""
+
+"""
 MCP server for Azure Database for PostgreSQL - Flexible Server.
 
 This server exposes the following capabilities:
@@ -114,7 +119,7 @@ class AzurePostgreSQLMCP:
                         }
                     )
         except Exception as e:
-            print(f"Error: {str(e)}")
+            logger.error(f"Error: {str(e)}")
             return ""
 
     def get_databases_resource(self):
@@ -147,7 +152,7 @@ class AzurePostgreSQLMCP:
                         }
                     )
         except Exception as e:
-            print(f"Error: {str(e)}")
+            logger.error(f"Error: {str(e)}")
             return ""
 
     def query_data(self, dbname: str, s: str) -> str:
@@ -165,7 +170,7 @@ class AzurePostgreSQLMCP:
                         }
                     )
         except Exception as e:
-            print(f"Error: {str(e)}", file=sys.stderr)
+            logger.error(f"Error: {str(e)}")
             return ""
 
     def exec_and_commit(self, dbname: str, s: str) -> None:
@@ -176,7 +181,7 @@ class AzurePostgreSQLMCP:
                     cur.execute(s)
                     conn.commit()
         except Exception as e:
-            print(f"Error: {str(e)}")
+            logger.error(f"Error: {str(e)}")
 
     def update_values(self, dbname: str, s: str):
         """Updates or inserts values into a table."""
@@ -213,7 +218,7 @@ class AzurePostgreSQLMCP:
                     }
                 )
             except Exception as e:
-                print(f"Failed to get PostgreSQL server configuration: {e}")
+                logger.error(f"Failed to get PostgreSQL server configuration: {e}")
                 raise e
 
         else:
@@ -232,7 +237,7 @@ class AzurePostgreSQLMCP:
                     {"param": configuration.name, "value": configuration.value}
                 )
             except Exception as e:
-                print(
+                logger.error(
                     f"Failed to get PostgreSQL server parameter '{parameter_name}': {e}"
                 )
                 raise e
