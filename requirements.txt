@@ -1,0 +1,4 @@
+azure-identity==1.21.0
+azure-mgmt-postgresqlflexibleservers==1.1.0
+mcp[cli]==1.6.0
+psycopg[binary]==3.2.6
